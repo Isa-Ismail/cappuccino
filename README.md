@@ -1,2 +1,3 @@
-# cappuccino
-coffee finder app
+# coffee-shop
+Just a local coffee shop finder
+# coffee
