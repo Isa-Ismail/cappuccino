@@ -1,5 +1,5 @@
 {
-  "name": "coffee-shop",
+  "name": "cappuccino",
   "version": "1.0.0",
   "description": "a local coffee shop finder",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Isa-Ismail/coffee-shop.git"
+    "url": "git+https://github.com/Isa-Ismail/cappuccino.git"
   },
   "author": "Isa-Ismail",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Isa-Ismail/coffee-shop/issues"
+    "url": "https://github.com/Isa-Ismail/cappuccino/issues"
   },
-  "homepage": "https://github.com/Isa-Ismail/coffee-shop#readme",
+  "homepage": "https://github.com/Isa-Ismail/cappuccino#readme",
   "dependencies": {
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
