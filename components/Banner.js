@@ -8,7 +8,7 @@ const Banner = () => {
         <p>
           Find local coffee stores nearby
         </p>
-        <button style ={{color: 'white', backgroundColor: 'blue', padding: '1rem 1rem', marginTop: '3rem'}}>
+        <button style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
             View stores nearby
         </button>
     </div>

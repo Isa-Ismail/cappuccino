@@ -29,7 +29,7 @@ const Store = ({coffeeStores}) => {
             <title>{name}</title>
             <link rel='icon' href='/shop.png' />
       </Head>
-      <p className='px-20 pt-10'><Link href='/'>Back</Link></p>
+      <Link href='/'><h3 className='px-20 pt-10 cursor-pointer'><i class="fa fa-arrow-left"></i> Back</h3></Link>
       <div className="md:flex justify-start items-start py-20 px-20 space-x-10">
         <div>
           <Image
@@ -37,11 +37,14 @@ const Store = ({coffeeStores}) => {
           alt={name}
           width={400}
           height={400}
+          className='rounded-xl'
           />
         </div>
         <div>
-          <h2>{address}</h2>
-          <h2>{name}</h2>
+          <h2 className="space-x-5"><i class="fa fa-coffee"></i><span>{name}</span></h2>
+          <p className="space-x-10"><i class="fa fa-map-marker"></i><span>{address}</span></p>
+          <p className="space-x-9"><i class="fa fa-location-arrow"></i><span>{neighbourhood}</span></p>
+          <p className="space-x-9"><i class="fa fa-star-o"></i><span>stars</span></p>
         </div>
       </div>
     </>
