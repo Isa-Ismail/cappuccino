@@ -2,26 +2,36 @@ import Link from "next/link"
 import coffeeStores from '../../data/coffee-stores.json'
 import Head from 'next/head'
 import Image from "next/image"
+import { fetcher } from '../../utils/fetcher'
 
 export async function getStaticProps (staticParams) {
+
+  const data = await fetcher('coffee', 'dhaka', 6)
+
   const id = staticParams.params.id
+
   return {
     props: {
-      coffeeStores:coffeeStores.find(item=> item.id.toString()===id)
+      coffeeStore: data.find(item=> item.fsq_id===id)
     }
   }
 }
 
 export async function getStaticPaths () {
+
+  const data = await fetcher('coffee', 'dhaka', 6)
+
+  const paths = data.map(item => ({params:{id: item.fsq_id}}))
+
   return {
-    paths: coffeeStores.map(item => ({params:{id: item.id.toString()}})),
+    paths,
     fallback: false
   }
 }
 
-const Store = ({coffeeStores}) => {
+const Store = ({coffeeStore}) => {
 
-  const {name, address, imgUrl, neighbourhood, websiteUrl} = coffeeStores
+  const {name, fqs_id, location: {address}} = coffeeStore
 
     return (
     <>
@@ -33,7 +43,7 @@ const Store = ({coffeeStores}) => {
       <div className="md:flex justify-start items-start py-20 px-20 space-x-10">
         <div>
           <Image
-          src={imgUrl}
+          src={'https://images.unsplash.com/photo-1498804103079-a6351b050096?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2468&q=80'}
           alt={name}
           width={400}
           height={400}
@@ -43,8 +53,8 @@ const Store = ({coffeeStores}) => {
         <div>
           <h2 className="space-x-5"><i className="fa fa-coffee"></i><span>{name}</span></h2>
           <p className="space-x-10"><i className="fa fa-map-marker"></i><span>{address}</span></p>
-          <p className="space-x-9"><i className="fa fa-location-arrow"></i><span>{neighbourhood}</span></p>
-          <p className="space-x-9"><i className="fa fa-star-o"></i><span>stars</span></p>
+          {/* <p className="space-x-9"><i className="fa fa-location-arrow"></i><span>{neighbourhood}</span></p>
+          <p className="space-x-9"><i className="fa fa-star-o"></i><span>stars</span></p> */}
         </div>
       </div>
     </>

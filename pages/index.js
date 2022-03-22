@@ -3,24 +3,17 @@ import Image from 'next/image'
 import Banner from '../components/Banner'
 import CardComponent from '../components/Card'
 import { Grid } from '@mui/material'
-import axios from 'axios'
 import { useContext, useEffect } from 'react'
 import { Store } from '../utils/store'
+import { fetcher } from '../utils/fetcher'
 
 export async function getStaticProps (context) {
 
-    const options = {
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'fsq3YiDK9d2qMInFD3n0uNWVeh+htyxYFv162KH1Qg/CldU='
-        }
-    }
-    
-    const {data} = await axios.get('https://api.foursquare.com/v3/places/search?query=coffee&open_now=true&near=dhaka&sort=POPULARITY&limit=30', options)
+    const data = await fetcher('coffee' ,'dhaka', 6)
 
     return {
         props: {
-            coffeeStores: data.results
+            coffeeStores: data
         }
     }
 }
