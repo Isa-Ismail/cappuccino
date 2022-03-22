@@ -33,8 +33,6 @@ const Home = ({coffeeStores}) => {
         dispatch({type: 'UPDATE', payload: coffeeStores})
     },[])
 
-    console.log(state)
-
     return(
         <>
             <Head>
