@@ -10,7 +10,7 @@ const CardComponent = ({name, img, id}) => {
             <CardContent>
               <p>{name}</p>
             </CardContent>
-            <CardMedia component='img' image={img} style = {{ height: '17rem', width: '20rem'}} />
+            <CardMedia component='img' image={img} style = {{ height: '17rem', width: '25rem'}} />
             </div>
           </Link>
         </Card>

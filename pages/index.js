@@ -56,7 +56,7 @@ const Home = ({coffeeStores}) => {
                 </div>
 
                 <div className='my-[3rem]'>
-                    <h2>Shops nearby {state}</h2><br />
+                    <h2>Shops nearby</h2><br />
                     <Grid container spacing={3}>
                         {coffeeStores.map(item =>(
                             <Grid item md = {4} key = {item.fsq_id}>
