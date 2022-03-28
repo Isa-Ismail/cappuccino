@@ -6,6 +6,7 @@ import { Grid } from '@mui/material'
 import { useContext, useEffect } from 'react'
 import { Store } from '../utils/store'
 import { fetcher } from '../utils/fetcher'
+import useTracker from '../utils/tracker'
 
 export async function getStaticProps (context) {
 
@@ -26,6 +27,11 @@ const Home = ({coffeeStores}) => {
         dispatch({type: 'UPDATE', payload: coffeeStores})
     },[])
 
+    const handleClick = () => {
+        alert('ff')
+        //useTracker()
+    }
+
     return(
         <>
             <Head>
@@ -37,7 +43,12 @@ const Home = ({coffeeStores}) => {
             <main className='flex flex-col md:mx-[8rem] sm:mx-[7rem] items-center my-[4rem] min-h-[40rem]'>
                 
                 <div className='flex md:space-x-[10rem] items-center'>
-                    <Banner />
+                    <div>
+                        <Banner />
+                        <button onClick = {handleClick} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
+                            View stores nearby
+                        </button>
+                    </div>
                     <div>
                         <Image
                         src="/shop.png"
