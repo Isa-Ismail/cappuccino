@@ -3,6 +3,8 @@ import coffeeStores from '../../data/coffee-stores.json'
 import Head from 'next/head'
 import Image from "next/image"
 import { fetcher } from '../../utils/fetcher'
+import { ArrowBack, LocationCityOutlined, CoffeeSharp, LocationOn, StarBorderPurple500Rounded } from "@mui/icons-material"
+
 
 export async function getStaticProps (staticParams) {
 
@@ -31,7 +33,7 @@ export async function getStaticPaths () {
 
 const Store = ({coffeeStore}) => {
 
-  const {name, fqs_id, imgUrl, location: {address}} = coffeeStore
+  const {name, fqs_id, imgUrl, location} = coffeeStore
 
     return (
     <>
@@ -39,7 +41,7 @@ const Store = ({coffeeStore}) => {
             <title>{name}</title>
             <link rel='icon' href='/shop.png' />
       </Head>
-      <Link href='/'><h3 className='px-20 pt-10 cursor-pointer'><i className="fa fa-arrow-left"></i> Back</h3></Link>
+      <Link href='/'><h3 className='px-20 pt-10 cursor-pointer'><ArrowBack /> Back</h3></Link>
       <div className="md:flex justify-start items-start py-20 px-20 space-x-10">
         <div>
           <Image
@@ -51,10 +53,10 @@ const Store = ({coffeeStore}) => {
           />
         </div>
         <div>
-          <h2 className="space-x-5"><i className="fa fa-coffee"></i><span>{name}</span></h2>
-          <p className="space-x-10"><i className="fa fa-map-marker"></i><span>{address}</span></p>
-          {/* <p className="space-x-9"><i className="fa fa-location-arrow"></i><span>{neighbourhood}</span></p>
-          <p className="space-x-9"><i className="fa fa-star-o"></i><span>stars</span></p> */}
+          <h2 className="space-x-5"><CoffeeSharp /><span>{name}</span></h2><br /><br />
+          <p className="space-x-10"><LocationOn /><span>{location.address}</span></p>
+          <p className="space-x-9"><LocationCityOutlined /><span>{location.neighborhood[0]}</span></p>
+          <p className="space-x-9"><StarBorderPurple500Rounded /><span>1</span></p>
         </div>
       </div>
     </>
