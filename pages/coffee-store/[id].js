@@ -55,7 +55,7 @@ const Store = ({coffeeStore}) => {
         <div>
           <h2 className="space-x-5"><CoffeeSharp /><span>{name}</span></h2><br /><br />
           <p className="space-x-10"><LocationOn /><span>{location.address}</span></p>
-          <p className="space-x-9"><LocationCityOutlined /><span>{location.neighborhood[0]}</span></p>
+          <p className="space-x-9"><LocationCityOutlined /><span>{location.region}</span></p>
           <p className="space-x-9"><StarBorderPurple500Rounded /><span>1</span></p>
         </div>
       </div>
