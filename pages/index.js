@@ -29,7 +29,7 @@ const Home = ({coffeeStores}) => {
     return(
         <>
             <Head>
-                <title>Coffee Shops Finder</title>
+                <title>Coffee Shops App</title>
                 <link rel='icon' href='/shop.png' />
             </Head>
 
