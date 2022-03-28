@@ -23,14 +23,13 @@ const Home = ({coffeeStores}) => {
 
     const handleClick = () => {
         if (!navigator.geolocation) {
-            error = 'Geolocation is not supported your browser'
             alert('Your location could not be extracted')
         }else {
             navigator.geolocation.getCurrentPosition((position) => {
 
                 const {latitude, longitude} = position.coords
 
-                setLocation({latitude: latitude.toString().slice(0,5), longitude: longitude.toString().slice(0,5)})
+                setLocation({latitude: latitude.toString(), longitude: longitude.toString()})
 
             }, () => {
                 alert('browser unsupported geolocation')
