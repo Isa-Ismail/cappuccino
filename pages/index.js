@@ -56,7 +56,7 @@ const Home = ({coffeeStores}) => {
                         <button onClick = {handleClick} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
                             View stores nearby
                         </button><br /><br />
-                        {location.latitude&&location.longitude?<p>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span> , <span className='text-red-600'>latitude: {location.longitude}</span></p>:<></>}
+                        {location.latitude&&location.longitude?<p>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span> , <span className='text-red-600'>longitude: {location.longitude}</span></p>:<></>}
                     </div>
                     <div>
                         <Image
