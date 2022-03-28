@@ -3,10 +3,8 @@ import Image from 'next/image'
 import Banner from '../components/Banner'
 import CardComponent from '../components/Card'
 import { Grid } from '@mui/material'
-import { useContext, useEffect } from 'react'
-import { Store } from '../utils/store'
+import { useContext, useEffect, useState } from 'react'
 import { fetcher } from '../utils/fetcher'
-import useTracker from '../utils/tracker'
 
 export async function getStaticProps (context) {
 
@@ -21,17 +19,27 @@ export async function getStaticProps (context) {
 
 const Home = ({coffeeStores}) => {
 
-    const {state, dispatch} = useContext(Store)
-
-    useEffect(() => {
-        dispatch({type: 'UPDATE', payload: coffeeStores})
-    },[])
+    const [location, setLocation] =useState({latitude: '', longitude: ''})
 
     const handleClick = () => {
-        alert('ff')
-        //useTracker()
+        if (!navigator.geolocation) {
+            error = 'Geolocation is not supported your browser'
+            alert('Your location could not be extracted')
+        }else {
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                const {latitude, longitude} = position.coords
+
+                setLocation({latitude: latitude.toString().slice(0,5), longitude: longitude.toString().slice(0,5)})
+
+            }, () => {
+                alert('browser unsupported geolocation')
+            })
+        }
     }
 
+    console.log(location)
+    
     return(
         <>
             <Head>
@@ -47,7 +55,8 @@ const Home = ({coffeeStores}) => {
                         <Banner />
                         <button onClick = {handleClick} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
                             View stores nearby
-                        </button>
+                        </button><br /><br />
+                        {location.latitude&&location.longitude?<p>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span> , <span className='text-red-600'>latitude: {location.longitude}</span></p>:<></>}
                     </div>
                     <div>
                         <Image

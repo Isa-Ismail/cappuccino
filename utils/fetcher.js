@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {createApi} from 'unsplash-js'
-import useTracker from './tracker'
 
 export const photourls = async ( query, perPage) => {
     const unsplash = createApi ({
@@ -29,8 +28,6 @@ export const fetcher = async (query, near, limit) => {
     
     const {data} = await axios.get(`https://api.foursquare.com/v3/places/search?query=${query}&open_now=true&near=${near}&sort=POPULARITY&limit=${limit}`, options)
 
-    useTracker()
-    
     return data.results.map( (item, idx) => {
       return {
         ...item, 
