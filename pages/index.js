@@ -29,7 +29,7 @@ const Home = ({coffeeStores}) => {
     return(
         <>
             <Head>
-                <title>Coffee shops data</title>
+                <title>Coffee Shops Finder</title>
                 <link rel='icon' href='/shop.png' />
             </Head>
 
