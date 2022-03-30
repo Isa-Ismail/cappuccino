@@ -33,7 +33,7 @@ export async function getStaticPaths () {
 
 const Store = ({coffeeStore}) => {
 
-  const {name, fqs_id, imgUrl, location} = coffeeStore
+  const {name, imgUrl, location} = coffeeStore
 
     return (
     <>
