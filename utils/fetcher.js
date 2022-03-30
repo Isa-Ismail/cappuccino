@@ -47,7 +47,7 @@ export const clientFetcher = async (ll, limit) => {
       }
   }
   
-  const {data} = await axios.get(`https://api.foursquare.com/v3/places/search?ll=23.75%2C90.43&radius=1000&sort=POPULARITY&limit=${limit}`, options)
+  const {data} = await axios.get(`https://api.foursquare.com/v3/places/search?query=coffee&ll=23.75%2C90.43&radius=1000&sort=POPULARITY&limit=${limit}`, options)
 
   return data.results.map( (item, idx) => {
     return {
