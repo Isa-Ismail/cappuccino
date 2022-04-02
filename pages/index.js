@@ -83,7 +83,7 @@ const Home = ({coffeeStores}) => {
                 </div>
 
                 <div className='my-[3rem]'>
-                    <h2>Shops nearby</h2><br />
+                    {state.stores.length>0&&<><h2>Shops nearby</h2><br /></>}
                     <Grid container spacing={3}>
                         {state.stores.map(item =>(
                             <Grid item md = {4} key = {item.fsq_id}>
