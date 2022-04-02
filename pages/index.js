@@ -3,25 +3,28 @@ import Image from 'next/image'
 import Banner from '../components/Banner'
 import CardComponent from '../components/Card'
 import { Grid } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { clientFetcher, fetcher } from '../utils/fetcher'
+import { Store } from '../utils/store'
 
-export async function getStaticProps (context) {
 
-    const data = await fetcher('coffee' ,'dhaka', 6)
+// server side static rendering
 
-    return {
-        props: {
-            coffeeStores: data
-        }
-    }
-}
+// export async function getStaticProps (context) {
+
+//     const data = await fetcher('coffee' ,'dhaka', 6)
+
+//     return {
+//         props: {
+//             coffeeStores: data
+//         }
+//     }
+// }
 
 const Home = ({coffeeStores}) => {
 
-    const [client, setClient] = useState([])
+    const {state, dispatch} = useContext(Store)
     const [location, setLocation] =useState({latitude: '', longitude: ''})
-    const latlong = location.latitude+','+location.longitude
 
     const handleClick = async () => {
         if (!navigator.geolocation) {
@@ -33,13 +36,18 @@ const Home = ({coffeeStores}) => {
 
                 setLocation({latitude: latitude.toString(), longitude: longitude.toString()})
 
+
             }, () => {
                 alert('browser unsupported geolocation')
             })
-            const csr = await clientFetcher(latlong, 10)
-
-                setClient(csr)
+                
         }
+    }
+
+    const fetchStore = async () => {
+        const stores = await clientFetcher( location.latitude+','+location.longitude ,10 )
+        dispatch({type: 'UPDATE', payload: stores})
+        console.log(stores.map(store=>store.location))
     }
     
     return(
@@ -52,13 +60,17 @@ const Home = ({coffeeStores}) => {
 
             <main className='flex flex-col md:mx-[8rem] sm:mx-[7rem] items-center my-[4rem] min-h-[40rem]'>
                 
-                <div className='flex md:space-x-[10rem] items-center'>
+                <div className='flex md:space-x-[15rem] items-center'>
                     <div>
                         <Banner />
-                        <button onClick = {handleClick} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
-                            View stores nearby
-                        </button><br /><br />
-                        {location.latitude&&location.longitude?<p>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span>, <span className='text-red-600'>longitude: {location.longitude}</span></p>:<></>}
+                        {location.latitude&&location.longitude?<p className= 'mt-10'>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span>, <span className='text-red-600'>longitude: {location.longitude}</span></p>:<></>}
+                        {location.latitude&&location.longitude?
+                            <button onClick = {fetchStore} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '1rem'}}>
+                            Find coffeeStores
+                            </button>:<button onClick = {handleClick} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
+                            Set your coordinates
+                            </button>
+                        }
                     </div>
                     <div>
                         <Image
@@ -73,7 +85,7 @@ const Home = ({coffeeStores}) => {
                 <div className='my-[3rem]'>
                     <h2>Shops nearby</h2><br />
                     <Grid container spacing={3}>
-                        {coffeeStores.map(item =>(
+                        {state.stores.map(item =>(
                             <Grid item md = {4} key = {item.fsq_id}>
                                 <CardComponent name = {item.name} img = {item.imgUrl} id = {item.fsq_id}/>
                             </Grid>

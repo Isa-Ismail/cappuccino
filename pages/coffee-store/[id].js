@@ -1,35 +1,43 @@
 import Link from "next/link"
-import coffeeStores from '../../data/coffee-stores.json'
 import Head from 'next/head'
 import Image from "next/image"
-import { fetcher } from '../../utils/fetcher'
+import { Clientfetcher } from '../../utils/fetcher'
+import { useContext } from "react"
+import { Store } from "../../utils/store"
+import { useRouter } from "next/router"
 
-export async function getStaticProps (staticParams) {
+// export async function getStaticProps (staticParams) {
 
-  const data = await fetcher('coffee', 'dhaka', 6)
+//   const data = await Clientfetcher('coffee', 'dhaka', 6)
 
-  const id = staticParams.params.id
+//   const id = staticParams.params.id
 
-  return {
-    props: {
-      coffeeStore: data.find(item=> item.fsq_id===id)
-    }
-  }
-}
+//   return {
+//     props: {
+//       coffeeStore: data.find(item=> item.fsq_id===id)
+//     }
+//   }
+// }
 
-export async function getStaticPaths () {
+// export async function getStaticPaths () {
 
-  const data = await fetcher('coffee', 'dhaka', 6)
+//   const data = await fetcher('coffee', 'dhaka', 6)
 
-  const paths = data.map(item => ({params:{id: item.fsq_id}}))
+//   const paths = data.map(item => ({params:{id: item.fsq_id}}))
 
-  return {
-    paths,
-    fallback: false
-  }
-}
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
 
-const Store = ({coffeeStore}) => {
+const Shop = () => {
+
+  const {state, dispatch} = useContext(Store)
+
+  const {id} = useRouter().query
+
+  const coffeeStore = state.stores.find(item=> item.fsq_id===id)
 
   const {name, imgUrl, location} = coffeeStore
 
@@ -53,7 +61,7 @@ const Store = ({coffeeStore}) => {
         <div>
           <h2 className="space-x-5"><span>{name}</span></h2><br /><br />
           <p className="space-x-10"><span>{location.address}</span></p>
-          <p className="space-x-9"><span>{location.region}</span></p>
+          <p className="space-x-9"><span>{location.locality}</span></p>
           <p className="space-x-9"><span>1</span></p>
         </div>
       </div>
@@ -61,4 +69,4 @@ const Store = ({coffeeStore}) => {
   )
 }
 
-export default Store
+export default Shop
