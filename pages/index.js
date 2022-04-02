@@ -4,7 +4,7 @@ import Banner from '../components/Banner'
 import CardComponent from '../components/Card'
 import { Grid } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
-import { fetcher } from '../utils/fetcher'
+import { clientFetcher, fetcher } from '../utils/fetcher'
 
 export async function getStaticProps (context) {
 
@@ -19,9 +19,11 @@ export async function getStaticProps (context) {
 
 const Home = ({coffeeStores}) => {
 
+    const [client, setClient] = useState([])
     const [location, setLocation] =useState({latitude: '', longitude: ''})
+    const latlong = location.latitude+','+location.longitude
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (!navigator.geolocation) {
             alert('Your location could not be extracted')
         }else {
@@ -34,10 +36,11 @@ const Home = ({coffeeStores}) => {
             }, () => {
                 alert('browser unsupported geolocation')
             })
+            const csr = await clientFetcher(latlong, 10)
+
+                setClient(csr)
         }
     }
-
-    console.log(location)
     
     return(
         <>
@@ -55,7 +58,7 @@ const Home = ({coffeeStores}) => {
                         <button onClick = {handleClick} style ={{color: 'white', backgroundColor: 'rgb(78, 12, 58)', padding: '1rem 1rem', marginTop: '3rem'}}>
                             View stores nearby
                         </button><br /><br />
-                        {location.latitude&&location.longitude?<p>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span> , <span className='text-red-600'>longitude: {location.longitude}</span></p>:<></>}
+                        {location.latitude&&location.longitude?<p>your coordinates are <span className='text-red-600'>latitude: {location.latitude}</span>, <span className='text-red-600'>longitude: {location.longitude}</span></p>:<></>}
                     </div>
                     <div>
                         <Image

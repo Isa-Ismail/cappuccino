@@ -3,8 +3,6 @@ import coffeeStores from '../../data/coffee-stores.json'
 import Head from 'next/head'
 import Image from "next/image"
 import { fetcher } from '../../utils/fetcher'
-import { ArrowBack, LocationCityOutlined, CoffeeSharp, LocationOn, StarBorderPurple500Rounded } from "@mui/icons-material"
-
 
 export async function getStaticProps (staticParams) {
 
@@ -41,7 +39,7 @@ const Store = ({coffeeStore}) => {
             <title>{name}</title>
             <link rel='icon' href='/shop.png' />
       </Head>
-      <Link href='/'><h3 className='px-20 pt-10 cursor-pointer'><ArrowBack /> Back</h3></Link>
+      <Link href='/'><h3 className='px-20 pt-10 cursor-pointer'> Back</h3></Link>
       <div className="md:flex justify-start items-start py-20 px-20 space-x-10">
         <div>
           <Image
@@ -53,10 +51,10 @@ const Store = ({coffeeStore}) => {
           />
         </div>
         <div>
-          <h2 className="space-x-5"><CoffeeSharp /><span>{name}</span></h2><br /><br />
-          <p className="space-x-10"><LocationOn /><span>{location.address}</span></p>
-          <p className="space-x-9"><LocationCityOutlined /><span>{location.region}</span></p>
-          <p className="space-x-9"><StarBorderPurple500Rounded /><span>1</span></p>
+          <h2 className="space-x-5"><span>{name}</span></h2><br /><br />
+          <p className="space-x-10"><span>{location.address}</span></p>
+          <p className="space-x-9"><span>{location.region}</span></p>
+          <p className="space-x-9"><span>1</span></p>
         </div>
       </div>
     </>
