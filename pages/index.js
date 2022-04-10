@@ -36,6 +36,7 @@ const Home = ({coffeeStores}) => {
 
                 setLocation({latitude: latitude.toString(), longitude: longitude.toString()})
 
+                dispatch({type: 'LATLONG', payload: latitude.toString()+','+longitude.toString()})
 
             }, () => {
                 alert('browser unsupported geolocation')
@@ -45,7 +46,7 @@ const Home = ({coffeeStores}) => {
     }
 
     const fetchStore = async () => {
-        const stores = await clientFetcher( location.latitude+','+location.longitude ,10 )
+        const stores = await clientFetcher( state.latlong, 10 )
         dispatch({type: 'UPDATE', payload: stores})
         console.log(stores.map(store=>store.location))
     }
@@ -53,7 +54,7 @@ const Home = ({coffeeStores}) => {
     return(
         <>
             <Head>
-                <title>Coffee Shops App</title>
+                <title>Coffee Shops App</title>(state.latlong
                 <link rel='icon' href='/shop.png' />
             </Head>
 

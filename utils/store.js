@@ -14,6 +14,10 @@ const reducer = (state, action) => {
             return {
                 ...state, stores:action.payload
             }
+        case 'LATLONG':
+            return {
+                ...state, latlong:action.payload
+            }
         default:
             return state
     }
