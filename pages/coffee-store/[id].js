@@ -1,45 +1,47 @@
 import Link from "next/link"
 import Head from 'next/head'
 import Image from "next/image"
-import { Clientfetcher } from '../../utils/fetcher'
+import { fetcher } from '../../utils/fetcher'
 import { useContext } from "react"
 import { Store } from "../../utils/store"
 import { useRouter } from "next/router"
 
-// export async function getStaticProps (staticParams) {
+export async function getStaticProps (staticParams) {
 
-//   const data = await Clientfetcher('coffee', 'dhaka', 6)
+  const data = await Clientfetcher('coffee', 'dhaka', 6)
 
-//   const id = staticParams.params.id
+  const id = staticParams.params.id
 
-//   return {
-//     props: {
-//       coffeeStore: data.find(item=> item.fsq_id===id)
-//     }
-//   }
-// }
+  const findCoffee = data.find(item=> item.fsq_id===id)
 
-// export async function getStaticPaths () {
+  return {
+    props: {
+      coffeeStore: findCoffee || {}
+    }
+  }
+}
 
-//   const data = await fetcher('coffee', 'dhaka', 6)
+export async function getStaticPaths () {
 
-//   const paths = data.map(item => ({params:{id: item.fsq_id}}))
+  const data = await fetcher('coffee', 'dhaka', 6)
 
-//   return {
-//     paths,
-//     fallback: false
-//   }
-// }
+  const paths = data.map(item => ({params:{id: item.fsq_id}}))
 
-const Shop = () => {
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+const Shop = ({coffeeStore}) => {
 
   const {state, dispatch} = useContext(Store)
 
   const {id} = useRouter().query
 
-  const coffeeStore = state.stores.find(item=> item.fsq_id===id)
+  const coffeeStoreContext = state.stores.find(item=> item.fsq_id===id)
 
-  const {name, imgUrl, location} = coffeeStore
+  const {name, imgUrl, location} = coffeeStoreContext
 
     return (
     <>
