@@ -48,7 +48,6 @@ const Home = ({coffeeStores}) => {
     const fetchStore = async () => {
         const stores = await clientFetcher( state.latlong, 10 )
         dispatch({type: 'UPDATE', payload: stores})
-        console.log(stores.map(store=>store.location))
     }
     
     return(
