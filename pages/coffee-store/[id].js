@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 
 export async function getStaticProps (staticParams) {
 
-  const data = await Clientfetcher('coffee', 'dhaka', 6)
+  const data = await fetcher('coffee', 'dhaka', 6)
 
   const id = staticParams.params.id
 
@@ -29,7 +29,7 @@ export async function getStaticPaths () {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
 
@@ -39,7 +39,9 @@ const Shop = ({coffeeStore}) => {
 
   const {id} = useRouter().query
 
-  const coffeeStoreContext = state.stores.find(item=> item.fsq_id===id)
+  if(!coffeeStore){
+    const coffeeStoreContext = state.stores.find(item=> item.fsq_id===id) 
+  }
 
   const {name, imgUrl, location} = coffeeStoreContext
 
