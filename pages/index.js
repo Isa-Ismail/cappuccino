@@ -39,7 +39,7 @@ const Home = ({coffeeStores}) => {
                 dispatch({type: 'LATLONG', payload: latitude.toString()+','+longitude.toString()})
 
             }, () => {
-                alert('browser unsupported geolocation')
+                alert('browser unsupported with geolocation')
             })
                 
         }
